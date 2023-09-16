@@ -1,4 +1,4 @@
-name: zb-cailapub
+name: Globysik
 
 entryPoint: main.sc
 
@@ -8,6 +8,10 @@ language: ru
 tests:
   include:
     - test.xml
+    
+injector:
+  botName: Глобусик
+  weatherApiKey: 323314c3c352b82f7f30add4e3f18e98
 
 nlp:
   intentNoMatchThresholds:
