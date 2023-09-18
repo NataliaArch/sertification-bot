@@ -1,5 +1,9 @@
 require: slotfilling/slotFilling.sc
   module = sys.zb-common
+  
+require: requirements.sc
+
+
 theme: /
 
     state: Start
@@ -9,7 +13,7 @@ theme: /
 
     state: Hello
         intent!: /привет
-        a: Привет привет
+        #a: Привет привет
         go!: /UserCheck
 
     state: Bye
