@@ -49,8 +49,8 @@ theme: /
     
     state: AskPlace
         q: * $City/$Country *
-        q: не знаю
-        if: 
+        q: $notknow  
+        a: дописать эту ветку 
 
 
 
