@@ -49,6 +49,8 @@ theme: /
     
     state: AskPlace
         q: * $City/$Country *
+        q: не знаю
+        if: 
 
 
 
