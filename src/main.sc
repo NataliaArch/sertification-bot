@@ -50,10 +50,16 @@ theme: /
             "Оформить тур" -> /FirstNewTour
 
     state: AskWeather
-        a: Назовите дату и город или страну, и я расскажу, какая погода там будет!
-        a: 
-        intent: /* [$Question] * {$Weather *$City *$date || toState = "/TempConfirm"
-        event: noMatch || toState = "./"
+        #вопрос из любого места о погоде в конкретном городе
+        q!: * [$Question] {* $Weather * $City/$Country * @duckling.date}
+        #q!: * [$Question] * $City * $Weather *
+        q!: * [а в] $City *
+        q!: * [а в] @duckling.date *
+        
+        script:
+            log("!!!!" + toPrettyString($parseTree));
+            $temp.city = $parseTree._City;
+            $temp.dt = $parseTree["_duckling.date"];
 
 
  
