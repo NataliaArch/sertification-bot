@@ -49,39 +49,6 @@ theme: /
             "Узнать погоду" -> /AskWeather
             "Оформить тур" -> /FirstNewTour
 
-    state: AskWeather
-        #вопрос из любого места о погоде в конкретном городе
-        q!: * [$Question] {* $Weather * $City/$Country * @duckling.date}
-        #q!: * [$Question] * $City * $Weather *
-        q!: * [а в] $City *
-        q!: * [а в/во/на] $Country *
-        q!: * [а в] @duckling.date *
-        
-        script:
-            log("!!!!" + toPrettyString($parseTree));
-            #есть ли в запросе город?
-            $temp.city = $parseTree._City;
-            if ($temp.city) {
-                $session.place =$parseTree._City.name; 
-                $session.placetype = "city";
-            }
-            
-            #есть ли в запросе страна?
-            $temp.country = $parseTree._Country;
-            if ($temp.country) {
-                $session.place =$parseTree._Country.name; 
-                $session.placetype = "country";
-            }
-            
-            #есть ли в запросе дата?
-            $temp.checkdt = $parseTree.["_duckling.date"];
-            if ($temp.checkdt) {
-                $session.dt =$parseTree["_duckling.date"].value;
-            }
-            
-        
-
-
 
  
     state: FirstNewTour
