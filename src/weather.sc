@@ -1,4 +1,4 @@
-theme: /
+theme: /Weather
     
     state: AskWeather
         #вопрос из любого места о погоде в конкретном городе
@@ -33,13 +33,13 @@ theme: /
     #    if: $temp.city !== $session.place //сохраненный город не тот, же, что в запросе. Например, в запросе города нет, а в сохраненных данных он есть
     #проверить дату .в то ли диапазоне (5 дней)
         if: $session.place && $session.dt
-            go: /CheckDate 
+            go: /Weather/CheckDate 
         elseif: $session.place === ""
             a: В каком городе или в какой стране посмотреть погоду?
-            go: /AskPlace
+            go: /Weather/AskPlace
         elseif: $session.dt === ""
             a: На какую дату смотреть погоду?
-            go: /AskDate
+            go: /Weather/AskDate
 
     state: CheckDate
         script:
@@ -60,14 +60,16 @@ theme: /
     state: TempConfirm
         a: Температура в [place] на [date] [temp] градусов по Цельсию
         if: $session.temp > 30
-            script:
+            script: 
+                $reactions.answer("Вы действительно планируете поездку в страну с жарким климатом?");
                 
         elseif: $session.temp <15
             script:
-                
+                $reactions.answer("Вы действительно планируете поездку в страну с холодным климатом?");
         else: 
             script:
+                $reactions.answer("Вы действительно планируете поездку в страну с умеренным климатом?");
                 
         buttons:
-            "Да" -> /PeopleNum
-            "Нет" -> /AskWeather
+            "Да" -> /Tour/PeopleNum
+            "Нет" -> /Weather/AskWeather
