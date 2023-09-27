@@ -11,7 +11,7 @@ theme: /Tour
 
     state: UnknownDestination
         a: Хорошо, я укажу это в заявке. Менеджер поможет вам выбрать место тура.
-        go!: /PeopleNum
+        go!: /Tour/PeopleNum
 
 
 #Количество людей в поездке
@@ -34,14 +34,14 @@ theme: /Tour
 
     state: IfKidsUnk
         a: Хорошо, я укажу в заявке, что число детей неизвестно.
-        go!: /Budget
+        go!: /Tour/Budget
 
     state: KidsMorePeople
         if: $session.people <= $session.kids
             a: Количество детей больше общего числа людей. Скорректируйте число детей. Чтобы скорректировать общее число людей, скажите "Изменить"
-            go!: /KidsNum
+            go!: /Tour/KidsNum
         else: 
-            go!: /Budget
+            go!: /Tour/Budget
 
 #Бюджет поездки
     state: Budget
@@ -53,13 +53,13 @@ theme: /Tour
 
     state: BudgetQuestions
         a: К сожалению, я пока не могу ответить на эти вопросы. || htmlEnabled = true, html = "К сожалению, я пока не могу ответить на эти вопросы."
-        go!: /BudgetUnk
+        go!: /Tour/BudgetUnk
 
     state: BudgetUnk
         a: Указать в заявке, что бюджет неизвестен?
         buttons:
-            "Да" -> /TourStartDate
-            "Нет" -> /Budget
+            "Да" -> /Tour/TourStartDate
+            "Нет" -> /Tour/Budget
             
 #Дата начала поездки
     state: TourStartDate
@@ -72,26 +72,26 @@ theme: /Tour
 
     state: StartDateCheck
         if: $session.sttourdate >= $session.today
-            go!: /Duration
+            go!: /Tour/Duration
         else: 
-            go!: /StDatePassed
+            go!: /Tour/StDatePassed
             
     state: StDateQuestions
         a: К сожалению, я пока не могу ответить на эти вопросы. || htmlEnabled = true, html = "К сожалению, я пока не могу ответить на эти вопросы."
-        go!: /StDateUnk
+        go!: /Tour/StDateUnk
 
     state: StDateUnk
         a: Указать в заявке, что бюджет неизвестен?
         buttons:
-            "Да" -> /Duration
-            "Нет" -> /TourStartDate
+            "Да" -> /Tour/Duration
+            "Нет" -> /Tour/TourStartDate
 
     state: StDatePassed
         a: Названная дата уже прошла
         if: $temp.stdateattempt > 2
-            go!: /StDateUnk
+            go!: /Tour/StDateUnk
         else: 
-            go!: /TourStartDate
+            go!: /Tour/TourStartDate
             
 #Длительность поездки
     state: Duration
@@ -103,7 +103,7 @@ theme: /Tour
 
     state: DurationUnk
         a: Я укажу в заявке, что длительность поездки неизвестна.
-        go!: /Stars
+        go!: /Tour/Stars
 
 #Звездность отеля
     state: Stars
@@ -116,26 +116,26 @@ theme: /Tour
     state: StarsWrong
         a: Количество звезд отеля может быть от одного до 5.
         if: $temp.starsattempt >2
-            go!: /StarsUnk
+            go!: /Tour/StarsUnk
         else: 
-            go!: /Stars
+            go!: /Tour/Stars
 
     state: StarsUnk
         a: Я укажу в заявке, что звездность отеля неизвестна.
-        go!: /UserName
+        go!: /Tour/UserName
 
 #Имя пользователя
     state: UserName
         if: $client.name
-            go!: /NameConfirmation
+            go!: /Tour/NameConfirmation
         else: 
-            go!: /NewUserName
+            go!: /Tour/NewUserName
 
     state: NameConfirmation
         a: В заявке указать имя {{$client.name}}?
         buttons:
-            "Да" -> /UserPhone
-            "Нет" -> /NewUserName
+            "Да" -> /Tour/UserPhone
+            "Нет" -> /Tour/NewUserName
         event: noMatch || toState = "./"
 
     state: NewUserName
@@ -149,25 +149,25 @@ theme: /Tour
     state: NameCheck
         a: Подтвердите, пожалуйста, что Ваше имя {{reactions.request}}.
         buttons:
-            "Да" -> /UserPhone
-            "Нет" -> /NewUserName
+            "Да" -> /Tour/UserPhone
+            "Нет" -> /Tour/NewUserName
 
     state: NameIsObligatory
         a: Ответ на этот вопрос необходим для формирования заявки
-        go!: /NewUserName
+        go!: /Tour/NewUserName
         
 #Телефон пользователя        
     state: UserPhone
         if: $client.phone
-            go!: /PhoneConfirmation
+            go!: /Tour/PhoneConfirmation
         else: 
-            go!: /NewPhone
+            go!: /Tour/NewPhone
             
     state: PhoneConfirmation
         a: В заявке указать телефон {{$client.phone}}?
         buttons:
-            "Да" -> /TourComment
-            "Нет" -> /NewPhone
+            "Да" -> /Tour/TourComment
+            "Нет" -> /Tour/NewPhone
 
     state: NewPhone
         a: Укажите, пожалуйста, контактный телефон.
@@ -177,7 +177,7 @@ theme: /Tour
 
     state: PhoneIsObligatory
         a: Ответ на этот вопрос необходим для формирования заявки
-        go!: /PhoneIsObligatory/
+        go!: /Tour/PhoneIsObligatory
 
 #Комментарий к заявке
     state: TourComment
@@ -201,14 +201,14 @@ theme: /Tour
                 Комментарии к поездке: {{$client.comment}}"
         a: Отправлять заявку менеджеру?
         buttons:
-            "Да" -> /IfEmailSent
-            "Нет" -> /IfTourChange
+            "Да" -> /Tour/IfEmailSent
+            "Нет" -> /Tour/IfTourChange
 
     state: IfTourChange
         a: Изменить заявку?
         buttons:
             "Да"
-            "Нет" -> /TourCancel
+            "Нет" -> /Tour/TourCancel
 
     state: IfEmailSent
         if: response
