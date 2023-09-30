@@ -46,7 +46,7 @@ theme: /
     state: OnboardingA
         a: Хотите узнать погоду? А может оформить тур?
         buttons:
-            "Узнать погоду" -> /Weather/AskWeather
+            "Узнать погоду" -> /Weather/FirstAskWeather
             "Оформить тур" -> /Tour/FirstNewTour
 
 
