@@ -87,16 +87,10 @@ theme: /
             
             } else if ($session.state = "weather") {
                 $reactions.transition("./WeatherTroubles");
-            }
-            
-            else if ($session.state = "tour") {
+            } else if ($session.state = "tour") {
                 $reactions.transition("./TourTroubles");
-            }
-            
-            else {
+            } else {
                 $reactions.transition("./OtherTroubles");
-            }
-  
             }
         
         state: NoMatchYes
