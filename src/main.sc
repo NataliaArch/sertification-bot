@@ -37,8 +37,8 @@ theme: /
             a: Вижу, вы недооформили заявку в город {{$client.placego}}. Напомнить вам содержание вашей заявки?
         else:
             a: Вижу, вы недооформили заявку. Напомнить вам содержание вашей заявки?
-         buttons:
-            "Да" -> /NewDestination  
+        buttons:
+            "Да" -> /Tour/NewDestination  
             "Нет" -> /OnboardingA
     #возможно, стоит сделать, как Сергей предложил: проверять каждый шаг в части оформление заявки, заполнена ли каждая переменная 
     # &&& как сохранить последний шаг заполнения заявки, если crush? lastState?
@@ -46,8 +46,8 @@ theme: /
     state: OnboardingA
         a: Хотите узнать погоду? А может оформить тур?
         buttons:
-            "Узнать погоду" -> /AskWeather
-            "Оформить тур" -> /FirstNewTour
+            "Узнать погоду" -> /Weather/AskWeather
+            "Оформить тур" -> /Tour/FirstNewTour
 
 
  
@@ -55,8 +55,8 @@ theme: /
         a: Перехожу к оформлению заявки
         a: Оформлять заявку в {country/city}?
         buttons:
-            "Да" -> /PeopleNum
-            "Нет" -> /NewDestination
+            "Да" -> /Tour/PeopleNum
+            "Нет" -> /Tour/NewDestination
         event: noMatch || toState = "./"
 
 
@@ -118,9 +118,9 @@ theme: /
             script: 
                 $reactions.answer("Чтобы продолжить оформление заявки, скажите 'Продолжить'. Не помните свою заявку? Скажите 'Напомнить'. А если заявку надо изменить, произнесите 'Изменить'.")
             buttons:
-                "Продолжить" -> /ContinueTour
-                "Напомнить" -> /RemindTour
-                "Изменить" -> /ChangeTour
+                "Продолжить" -> /Tour/ContinueTour
+                "Напомнить" -> /Tour/RemindTour
+                "Изменить" -> /Tour/ChangeTour
             # 
         state: OtherTroubles
             script: 
