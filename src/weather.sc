@@ -68,15 +68,15 @@ theme: /Weather
                     $reactions.answer("Посмотреть погоду в городе {{$session.randcity}}?")
                 }
             
-            state: Yes
-                q: $comYes
+            state: Yes 
+                q: $comYes || fromState = "/UnkPlace"
                 script:
                    $session.place =$session.randcity; 
                    $session.placetype = "city"; 
                    $reactions.transition("/Weather/AskWeather/CheckDate")
                     
             state: No
-                q: $comNo
+                q: $comNo || fromState = "/UnkPlace"
                 a: Может, тогда перейдем к оформлению тура?
                 
         state: CheckDate
