@@ -21,7 +21,7 @@ theme: /Weather
                 $session.place =$parseTree._City.name; 
                 $session.placetype = "city";
             }
-            
+            log("!!!!CITY" + {{$session.place}}));
             #есть ли в запросе страна?
             $temp.country = $parseTree._Country;
             if ($temp.country) {
