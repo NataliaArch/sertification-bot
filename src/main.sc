@@ -9,6 +9,9 @@ theme: /
     state: Start
         q!: $regex</start>
         intent!: /привет
+        script:
+            // устанавливаются необходимые переменные для первого запуска
+            $temp.var = setVariable();
         if: $client.tourid //переменная tourid - переключатель: 1 - начата заявка на тур, 0 - оформление тура не начато
             go!: /CrushEnter
         elseif: $client.name
