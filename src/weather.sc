@@ -2,6 +2,7 @@ theme: /Weather
     
     state: AskWeather
         #вопрос из любого места о погоде в конкретном городе
+        a: Назовите дату и город или страну, и я расскажу, какая погода там будет!
         q!: * [$Question] ($Weather/$City/$Country/@duckling.date)
         #q!: * [$Question] * $City * $Weather *
         q!: * [а в] $City *
