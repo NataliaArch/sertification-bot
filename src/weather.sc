@@ -60,8 +60,8 @@ theme: /Weather
             q: $notknow
             script:
                 if ($session.place === "") {
-                    $temp.randcitynum = $reactions.random(answers.randomcities.phrases.length);;
-                    $session.randcity = {{answers.randomcities.phrases[$temp.randcitynum]}}
+                    $temp.randcitynum = $reactions.random(answers.randomcities.phrases.length);
+                    $session.randcity = answers.randomcities.phrases[$temp.randcitynum];
                     $reactions.answer("Посмотреть погоду в городе {{$session.randcity}}?")
                 }
             
