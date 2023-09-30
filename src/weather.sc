@@ -37,31 +37,57 @@ theme: /Weather
             
     #    if: $temp.city !== $session.place //сохраненный город не тот, же, что в запросе. Например, в запросе города нет, а в сохраненных данных он есть
     #проверить дату .в то ли диапазоне (5 дней)
-        if: $session.place && $session.dt
-            go: /Weather/CheckDate 
-        elseif: $session.place === ""
-            a: В каком городе или в какой стране посмотреть погоду?
-            go: /Weather/AskPlace
-        elseif: $session.dt === ""
-            a: На какую дату смотреть погоду?
-            go: /Weather/AskDate
-
-    state: CheckDate
-        script:
-            var timenow = $jsapi.currentTime();
-            
-        a: найти формулу, чтобы проверяла дни до сегодня от запрашиваемой даты, если больше 5, или в прошлом, то обнуление переменной и
-        a: Я могу посмотреть погоду только на сегодня и следующие 4 дня.
-        a: иначе проверка, есть ли город или страна (см шаг выше). Если есть, то переход в TempRequest
-        a: иначе в AskPlace
     
-    state: AskPlace
-        q: * ($City|$Country) *
-        q: $notknow  
-        a: дописать эту ветку 
+        state: CheckWeatherRequest
+            if: $session.place && $session.dt
+                go: /Weather/AskWeather/CheckDate 
+            elseif: $session.place === ""
+                a: В каком городе или в какой стране посмотреть погоду?
+                go: /Weather/AskWeather
+            elseif: $session.dt === ""
+                a: На какую дату смотреть погоду?
+                go: /Weather/AskWeather
+        
+     #   state: AskPlace
+     #       q: * ($City|$Country) *
+     #       if: $session.dt === ""
+     #           a: На какую дату смотреть погоду?
+     #           go: /Weather/AskWeather/AskDate
+     #       else:
+     #           go: /Weather/AskWeather/CheckDate
+            
+        state: UnkPlace
+            q: $notknow
+            script:
+                if ($session.place === "") {
+                    $temp.randcitynum = $reactions.random(answers.randomcities.phrases.length);;
+                    $session.randcity = {{answers.randomcities.phrases[$temp.randcitynum]}}
+                    $reactions.answer("Посмотреть погоду в городе {{$session.randcity}}?")
+                }
+            
+            state: Yes
+                q: $comYes
+                script:
+                   $session.place =$session.randcity; 
+                   $session.placetype = "city"; 
+                   $reactions.transition("/Weather/AskWeather/CheckDate")
+                    
+            state: No
+                q: comNo
+                a: Может, тогда перейдем к оформлению тура?
+                
+        state: CheckDate
+            script:
+                var timenow = $jsapi.currentTime();
+                
+            a: найти формулу, чтобы проверяла дни до сегодня от запрашиваемой даты, если больше 5, или в прошлом, то обнуление переменной и
+            a: Я могу посмотреть погоду только на сегодня и следующие 4 дня.
+            a: иначе проверка, есть ли город или страна (см шаг выше). Если есть, то переход в TempRequest
+            a: иначе в AskPlace        
 
-
-
+    
+    
+  
     state: TempConfirm
         a: Температура в [place] на [date] [temp] градусов по Цельсию
         if: $session.temp > 30

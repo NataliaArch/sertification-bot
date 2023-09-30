@@ -38,7 +38,11 @@ require: dicts/cities.csv
 require: dicts/countries.csv
     var = countries
     name = countries
-
+    
+#словарь для хранения текстов ответов
+require: dicts/answers.yaml
+    var = answers
+    name = answers
 
 # файлы сценария (код разделен на модули)
 # часть про погоду
