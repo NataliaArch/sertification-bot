@@ -51,7 +51,7 @@ theme: /Weather
         a: иначе в AskPlace
     
     state: AskPlace
-        q: * $City/$Country *
+        q: * ($City|$Country) *
         q: $notknow  
         a: дописать эту ветку 
 
