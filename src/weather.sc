@@ -30,10 +30,10 @@ theme: /Weather
             }
             
             #есть ли в запросе дата?
-    #        $temp.checkdt = $parseTree.["_duckling.date"];
-    #        if ($temp.checkdt) {
-     #           $session.dt =$parseTree["_duckling.date"].value;
-    #        }
+            $temp.checkdt = $parseTree.["_duckling.date"];
+            if ($temp.checkdt) {
+                $session.dt =$parseTree["_duckling.date"].value;
+            }
             
     #    if: $temp.city !== $session.place //сохраненный город не тот, же, что в запросе. Например, в запросе города нет, а в сохраненных данных он есть
     #проверить дату .в то ли диапазоне (5 дней)
