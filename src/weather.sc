@@ -30,7 +30,7 @@ theme: /Weather
             }
             
             #есть ли в запросе дата?
-            $temp.checkdt = $parseTree.["_duckling.date"];
+            $temp.checkdt = $parseTree["_duckling.date"];
             if ($temp.checkdt) {
                 $session.dt =$parseTree["_duckling.date"].value;
             }
