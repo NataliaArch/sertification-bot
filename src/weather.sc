@@ -76,7 +76,7 @@ theme: /Weather
                    $reactions.transition("/Weather/AskWeather/CheckDate")
                     
             state: No
-                q: comNo
+                q: $comNo
                 a: Может, тогда перейдем к оформлению тура?
                 
         state: CheckDate
